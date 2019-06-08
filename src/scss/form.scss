@@ -10,11 +10,15 @@
 .email-form__fieldset {
   border: none;
   padding: 35px;
+}
+
+.email-form__buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
 .email-form__field {
   display: block;
   font-size: 12px;
@@ -33,21 +37,31 @@
 
 .email-form__button {
   border-radius: 30px;
-  background: $lightgrey;
-  color: $grey;
   border: none;
+  background: $brightblue;
+  color: white;
   padding: 9px 15px 9px 35px;
   cursor: pointer;
   position: relative;
 }
 
-.email-form__button:before {
+.email-form__button:disabled {
+  background: $lightgrey;
+  color: $grey;
+  cursor: not-allowed;
+}
+
+.email-form__button::before {
   content: "";
   display: inline-block;
-  background-image: url(../icons/right-arrow.svg);
+  background-image: url(../icons/right-arrow-white.svg);
   width: 15px;
   height: 15px;
   position: absolute;
   left: 13px;
   top: 8px;
+}
+
+.email-form__button:disabled::before {
+  background-image: url(../icons/right-arrow.svg);
 }
