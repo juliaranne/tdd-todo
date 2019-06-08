@@ -1,0 +1,23 @@
+.email-form__attachments {
+  margin: 10px 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.email-form__heading {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.email-form__attachment {
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.email-form__image {
+  max-width: 100%;
+  height: auto;
+}

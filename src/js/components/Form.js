@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import "../../scss/form.scss";
+import ImagePreviews from "./ImagePreviews";
 
 const Form = props => (
   <form className="email-form">
@@ -19,7 +20,9 @@ const Form = props => (
         rows="10"
         className="email-form__field email-form__field--textarea"
       />
-      {props.imagesrc ? <img src={props.imagesrc} alt="preview" /> : null}
+      {props.imgPreviews.length ? (
+        <ImagePreviews images={props.imgPreviews} />
+      ) : null}
       <div className="email-form__buttons">
         <input
           type="file"

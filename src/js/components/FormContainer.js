@@ -30,7 +30,7 @@ class FormContainer extends Component {
         }
       },
       valid: false,
-      imgsrc: ""
+      imgPreviews: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
@@ -40,14 +40,22 @@ class FormContainer extends Component {
     this.setState({ [event.target.id]: event.target.value });
   }
 
-  handleUpload(e) {
-    if (e.target.files && e.target.files[0]) {
-      console.log(e.target.files, e.target.files[0]);
-      let reader = new FileReader();
-      reader.onload = function(ev) {
-        this.setState({ imgsrc: ev.target.result });
-      }.bind(this);
-      reader.readAsDataURL(e.target.files[0]);
+  handleUpload(event) {
+    if (event.target.files) {
+      for (let i = 0; i < event.target.files.length; i += 1) {
+        let imgName = event.target.files[i].name;
+        let reader = new FileReader();
+        reader.onload = function(ev) {
+          console.log(ev.target.result);
+          this.setState({
+            imgPreviews: [
+              ...this.state.imgPreviews,
+              { src: ev.target.result, name: imgName }
+            ]
+          });
+        }.bind(this);
+        reader.readAsDataURL(event.target.files[i]);
+      }
     }
   }
 
@@ -57,7 +65,7 @@ class FormContainer extends Component {
         <Form
           valid={this.state.valid}
           upload={this.handleUpload}
-          imagesrc={this.state.imgsrc}
+          imgPreviews={this.state.imgPreviews}
         />
       </div>
     );
