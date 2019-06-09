@@ -2,43 +2,47 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Form from "./Form";
 import "../../scss/form_container.scss";
+import EmailSuccess from "./EmailSuccess";
 
 class FormContainer extends Component {
   constructor() {
     super();
     this.state = {
-      formFields: {
+      emailFields: {
         to: {
-          value: "",
-          valid: false
+          valid: true,
+          value: ""
         },
         cc: {
-          value: "",
-          valid: false
+          valid: true,
+          value: ""
         },
         bcc: {
-          value: "",
-          valid: false
-        },
-        subject: {
-          value: "",
-          valid: false
-        },
-        message: {
-          value: "",
-          valid: false
+          valid: true,
+          value: ""
         }
       },
+      textFields: {
+        subject: {
+          valid: false,
+          value: ""
+        },
+        message: {
+          valid: false,
+          value: ""
+        }
+      },
+      imgPreviews: [],
       valid: false,
-      imgPreviews: []
+      submitted: true
     };
-    this.handleChange = this.handleChange.bind(this);
+
     this.handleUpload = this.handleUpload.bind(this);
     this.deleteImage = this.deleteImage.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+    this.validateTextFields = this.validateTextFields.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
+    this.clearEmailValidation = this.clearEmailValidation.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleUpload(event) {
@@ -70,15 +74,111 @@ class FormContainer extends Component {
     });
   }
 
+  validateTextFields(event) {
+    const name = event.target.name;
+    const isValid = event.target.value.length > 0 ? true : false;
+    this.setState(
+      {
+        textFields: {
+          ...this.state.textFields,
+          [name]: {
+            valid: isValid,
+            value: event.target.value
+          }
+        }
+      },
+      () => this.updateSubmit()
+    );
+  }
+
+  validateEmail(event) {
+    let emails = event.target.value;
+    const name = event.target.name;
+    let validEmails = [];
+    const regex = /^([\w+-.%]+@[\w.-]+\.[A-Za-z]{2,4})(,[\w+-.%]+@[\w.-]+\.[A-Za-z]{2,4})*$/;
+
+    if (emails === "") {
+      return this.clearEmailValidation(name);
+    } else {
+      emails = emails.split(" ");
+      for (let i = 0; i < emails.length; i += 1) {
+        if (regex.test(emails[i])) {
+          validEmails.push(emails[i]);
+        }
+      }
+      const valid = emails.length === validEmails.length ? true : false;
+      this.updateEmails(name, validEmails, valid);
+    }
+  }
+
+  clearEmailValidation(name) {
+    this.setState({
+      emailFields: {
+        ...this.state.emailFields,
+        [name]: {
+          valid: true
+        }
+      }
+    });
+  }
+
+  updateEmails(name, emails, valid) {
+    this.setState(
+      {
+        emailFields: {
+          ...this.state.emailFields,
+          [name]: {
+            valid,
+            value: emails
+          }
+        }
+      },
+      () => this.updateSubmit()
+    );
+  }
+
+  updateSubmit() {
+    const textValues = Object.values(this.state.textFields).every(
+      item => item.valid === true
+    );
+    const emailValues = !Object.values(this.state.emailFields).some(
+      item => item.valid === false
+    );
+    const submitState = textValues && emailValues ? true : false;
+    this.setState({
+      valid: submitState
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.setState({
+      submitted: true
+    });
+  }
+
   render() {
     return (
       <div className="email-form-wrapper">
-        <Form
-          valid={this.state.valid}
-          upload={this.handleUpload}
-          imgPreviews={this.state.imgPreviews}
-          deleteImg={this.deleteImage}
-        />
+        {!this.state.submitted ? (
+          <Form
+            valid={this.state.valid}
+            upload={this.handleUpload}
+            imgPreviews={this.state.imgPreviews}
+            deleteImg={this.deleteImage}
+            validateTextFields={this.validateTextFields}
+            validateEmail={this.validateEmail}
+            formSubmit={this.handleSubmit}
+            toError={this.state.emailFields.to.valid}
+            ccError={this.state.emailFields.cc.valid}
+            bccError={this.state.emailFields.bcc.valid}
+          />
+        ) : (
+          <EmailSuccess
+            title={this.state.textFields.subject.value}
+            message={this.state.textFields.message.value}
+          />
+        )}
       </div>
     );
   }

@@ -1,0 +1,31 @@
+@import "colours";
+
+.email {
+  padding: 45px;
+}
+
+.email__header {
+  text-align: center;
+  color: $grey;
+  position: relative;
+  padding: 100px 0 40px;
+  border-bottom: 1px solid $palegrey;
+  margin-bottom: 35px;
+}
+
+.email__header::before {
+  content: "";
+  display: block;
+  width: 85px;
+  height: 85px;
+  border-radius: 50px;
+  background-color: $green;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url(../icons/check-symbol.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 55%;
+}
