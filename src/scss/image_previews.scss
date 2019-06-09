@@ -1,12 +1,18 @@
+@import "colours";
+
 .email-form__attachments {
   margin: 10px 0;
   padding: 0;
   list-style-type: none;
+  max-width: 260px;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .email-form__heading {
   font-size: 13px;
   margin-bottom: 8px;
+  width: 100%;
 }
 
 .email-form__attachment {
@@ -15,9 +21,32 @@
   height: 120px;
   border-radius: 6px;
   overflow: hidden;
+  margin: 0 10px 10px 0;
+  position: relative;
 }
 
 .email-form__image {
-  max-width: 100%;
-  height: auto;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.email-form__image-delete {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: url(../icons/rubbish-bin-delete-button.svg) no-repeat center
+    center;
+  background-color: rgba(0, 0, 0, 0.6);
+  background-size: 25%;
+  opacity: 0;
+  transition: opacity 0.15s linear;
+  cursor: pointer;
+}
+
+.email-form__image-delete:hover {
+  opacity: 1;
 }

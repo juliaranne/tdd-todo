@@ -34,6 +34,7 @@ class FormContainer extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
+    this.deleteImage = this.deleteImage.bind(this);
   }
 
   handleChange(event) {
@@ -46,7 +47,6 @@ class FormContainer extends Component {
         let imgName = event.target.files[i].name;
         let reader = new FileReader();
         reader.onload = function(ev) {
-          console.log(ev.target.result);
           this.setState({
             imgPreviews: [
               ...this.state.imgPreviews,
@@ -59,6 +59,17 @@ class FormContainer extends Component {
     }
   }
 
+  deleteImage(event) {
+    const parentElement = document.querySelector(".email-form__attachments");
+    const index =
+      [...parentElement.children].indexOf(event.target.parentElement) - 1;
+    let imgPreviews = this.state.imgPreviews;
+    imgPreviews.splice(index, 1);
+    this.setState({
+      imgPreviews
+    });
+  }
+
   render() {
     return (
       <div className="email-form-wrapper">
@@ -66,6 +77,7 @@ class FormContainer extends Component {
           valid={this.state.valid}
           upload={this.handleUpload}
           imgPreviews={this.state.imgPreviews}
+          deleteImg={this.deleteImage}
         />
       </div>
     );

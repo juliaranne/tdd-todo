@@ -21,7 +21,7 @@ const Form = props => (
         className="email-form__field email-form__field--textarea"
       />
       {props.imgPreviews.length ? (
-        <ImagePreviews images={props.imgPreviews} />
+        <ImagePreviews images={props.imgPreviews} deleteImg={props.deleteImg} />
       ) : null}
       <div className="email-form__buttons">
         <input
