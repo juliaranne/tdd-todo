@@ -3,7 +3,9 @@ import "../../scss/image_previews.scss";
 
 const ImagePreviews = props => (
   <ul className="email-form__attachments">
-    <h4 className="email-form__heading">Attached files</h4>
+    {props.showTitle ? (
+      <h4 className="email-form__heading">Attached files</h4>
+    ) : null}
     {props.images.map((image, index) => (
       <li
         key={index}

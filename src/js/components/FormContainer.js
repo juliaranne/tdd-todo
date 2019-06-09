@@ -11,15 +11,15 @@ class FormContainer extends Component {
       emailFields: {
         to: {
           valid: true,
-          value: ""
+          value: []
         },
         cc: {
           valid: true,
-          value: ""
+          value: []
         },
         bcc: {
           valid: true,
-          value: ""
+          value: []
         }
       },
       textFields: {
@@ -34,7 +34,7 @@ class FormContainer extends Component {
       },
       imgPreviews: [],
       valid: false,
-      submitted: true
+      submitted: false
     };
 
     this.handleUpload = this.handleUpload.bind(this);
@@ -116,7 +116,8 @@ class FormContainer extends Component {
       emailFields: {
         ...this.state.emailFields,
         [name]: {
-          valid: true
+          valid: true,
+          value: []
         }
       }
     });
@@ -177,6 +178,10 @@ class FormContainer extends Component {
           <EmailSuccess
             title={this.state.textFields.subject.value}
             message={this.state.textFields.message.value}
+            imgPreviews={this.state.imgPreviews}
+            emailTo={this.state.emailFields.to.value}
+            emailCc={this.state.emailFields.cc.value}
+            emailBcc={this.state.emailFields.bcc.value}
           />
         )}
       </div>

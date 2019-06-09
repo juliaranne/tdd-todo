@@ -69,3 +69,21 @@
 .email-form__button:disabled::before {
   background-image: url(../icons/right-arrow.svg);
 }
+
+.email-form__file-upload {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.email-form__upload-label {
+  width: 30px;
+  height: 30px;
+  border: 1px solid $palegrey;
+  cursor: pointer;
+  border-radius: 30px;
+  background: url(../icons/paperclip.svg) no-repeat center;
+  background-size: 70%;
+}

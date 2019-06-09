@@ -1,7 +1,7 @@
 @import "colours";
 
 .email {
-  padding: 45px;
+  padding: 65px;
 }
 
 .email__header {
@@ -28,4 +28,31 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 55%;
+}
+
+.email__title {
+  margin-bottom: 5px;
+}
+
+.email__list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-size: 12px;
+  line-height: 1.5em;
+  span {
+    margin-right: 5px;
+  }
+}
+
+.email__address {
+  color: $brightblue;
+  display: inline;
+  margin-right: 5px;
+}
+
+.email__content {
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.44em;
 }

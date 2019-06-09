@@ -53,14 +53,20 @@ const Form = props => (
         // onBlur={props.updateMessage}
       />
       {props.imgPreviews.length ? (
-        <ImagePreviews images={props.imgPreviews} deleteImg={props.deleteImg} />
+        <ImagePreviews
+          images={props.imgPreviews}
+          deleteImg={props.deleteImg}
+          showTitle={true}
+        />
       ) : null}
       <div className="email-form__buttons">
+        <label className="email-form__upload-label" htmlFor="fileinput" />
         <input
           type="file"
           multiple
           className="email-form__file-upload"
           onChange={props.upload}
+          id="fileinput"
         />
         <button
           type="submit"
