@@ -1,6 +1,6 @@
 # email-form
 
-To run project, clone repository, cd in to email-form folder and then run:
+To run project, clone repository, cd in to tdd folder and then run:
 
 npm install
 
